@@ -12,7 +12,7 @@ export interface RootCauseAnalysisResult {
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "ADMIN") {
+  if (!session || !session.user || (session.user as any).role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -33,14 +33,18 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Sector not found" }, { status: 404 });
     }
 
-    // 2. Fetch Complaints for this sector (Last 6 Months)
-    const sixMonthsAgo = new Date();
-    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-
+    // 2. Fetch Complaints for this sector (All time, not limited to 6 months)
     const complaints: any[] = await (prisma.complaint.findMany as any)({
-      where: {
-        sectorId: sectorId,
-        createdAt: { gte: sixMonthsAgo }
+      where: { 
+        OR: [
+          { sectorId: sectorId },
+          { title: { contains: sector.name, mode: "insensitive" } },
+          { description: { contains: sector.name, mode: "insensitive" } },
+          { title: { contains: `sec ${sector.number}`, mode: "insensitive" } },
+          { description: { contains: `sec ${sector.number}`, mode: "insensitive" } },
+          { title: { contains: `sector ${sector.number}`, mode: "insensitive" } },
+          { description: { contains: `sector ${sector.number}`, mode: "insensitive" } }
+        ]
       },
       select: {
         title: true,
@@ -54,8 +58,9 @@ export async function GET(req: NextRequest) {
 
     if (complaints.length === 0) {
       return NextResponse.json({ 
+        success: true,
         data: {
-          summary: "No complaints found for this sector in the last 6 months.",
+          summary: "No complaints found for this sector.",
           keyIssues: [],
           recommendation: "Maintain current operations."
         } 

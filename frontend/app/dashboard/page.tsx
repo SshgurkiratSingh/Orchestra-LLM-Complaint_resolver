@@ -29,6 +29,7 @@ import {
   AlertTriangle,
   LogOut,
 } from "lucide-react";
+import { PageLoader } from "@/components/PageLoader";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -64,11 +65,7 @@ export default function DashboardPage() {
   }, [status, session]);
 
   if (status === "loading" || status === "unauthenticated" || isLoading) {
-    return (
-      <div className="min-h-[80vh] flex items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <PageLoader message="Loading your dashboard..." />;
   }
 
   // Calculate stats

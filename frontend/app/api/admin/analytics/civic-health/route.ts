@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "ADMIN") {
+  if (!session || !session.user || (session.user as any).role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -13,10 +13,12 @@ export async function GET(req: Request) {
     // 1. Get all sectors and complaints
     const sectors = await prisma.sector.findMany();
     
-    // We only fetch minimal data for speed
+    // We fetch text fields to perform text matching for complaints without sectorId
     const complaints = await prisma.complaint.findMany({
       select: {
         sectorId: true,
+        title: true,
+        description: true,
         urgency: true,
         status: true,
         createdAt: true,
@@ -25,7 +27,15 @@ export async function GET(req: Request) {
 
     // 2. Group by Sector and Calculate Real-time Civic Health
     const sectorStats = sectors.map(sec => {
-      const secComplaints = complaints.filter(c => c.sectorId === sec.id);
+      const secComplaints = complaints.filter(c => {
+         if (c.sectorId === sec.id) return true;
+         // Fallback keyword matching for unassigned new complaints
+         const text = ((c.title || "") + " " + (c.description || "")).toLowerCase();
+         if (text.includes(sec.name.toLowerCase())) return true;
+         if (text.includes(`sec ${sec.number}`)) return true;
+         if (text.includes(`sector ${sec.number}`)) return true;
+         return false;
+      });
       
       const openIssues = secComplaints.filter(c => 
         c.status !== "RESOLVED" && c.status !== "CLOSED" && c.status !== "REJECTED"

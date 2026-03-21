@@ -104,12 +104,12 @@ async function main() {
     const sectorObjectId = sectorMapping[row.sector_id] || null;
     const deptObjectId = deptMapping[row.assigned_department] || null;
 
-    let parsedStatus = Status.PENDING;
+    let parsedStatus: Status = Status.PENDING;
     if (row.status === 'Resolved') parsedStatus = Status.RESOLVED;
     if (row.status === 'In Progress') parsedStatus = Status.INVESTIGATING;
     if (row.status === 'Rejected') parsedStatus = Status.REJECTED;
 
-    let parsedSource = Source.TEXT;
+    let parsedSource: Source = Source.TEXT;
     if (row.source === 'Voice Call') parsedSource = Source.VOICE;
 
     const urgencyScale = Math.round(parseFloat(row.urgency_score) * 10); // convert 0-1 to 1-10

@@ -47,9 +47,9 @@ export default async function PublicComplaintPage({
   const complaint = await prisma.complaint.findUnique({
     where: { id },
     include: {
-      department: true,
+      department: true, sector: true,
       documents: true,
-      citizen: {
+      user: {
         select: {
           name: true,
           phone: true // Maybe we shouldn't show phone completely, just partial
@@ -73,8 +73,8 @@ export default async function PublicComplaintPage({
   }
 
   // Mask user phone for privacy
-  const maskedPhone = complaint.citizen?.phone 
-    ? `${complaint.citizen.phone.substring(0, 4)}XXXX${complaint.citizen.phone.substring(complaint.citizen.phone.length - 2)}` 
+  const maskedPhone = complaint.user?.phone 
+    ? `${complaint.user.phone.substring(0, 4)}XXXX${complaint.user.phone.substring(complaint.user.phone.length - 2)}` 
     : "Anonymous";
 
   return (
@@ -99,7 +99,7 @@ export default async function PublicComplaintPage({
           <CardHeader className="bg-white border-b border-slate-100 pb-4">
             <CardTitle className="text-2xl">{complaint.title}</CardTitle>
             <CardDescription className="flex items-center gap-2 mt-2 font-medium">
-               Filed by: {complaint.citizen?.name || "Citizen"} ({maskedPhone})
+               Filed by: {complaint.user?.name || "Citizen"} ({maskedPhone})
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6 bg-white">
@@ -115,7 +115,7 @@ export default async function PublicComplaintPage({
                 <Tag className="w-5 h-5 text-indigo-500 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-slate-900">Category</p>
-                  <p className="text-sm text-slate-600">{complaint.type || "General"}</p>
+                  <p className="text-sm text-slate-600">{complaint.category || "General"}</p>
                 </div>
               </div>
 
@@ -123,7 +123,7 @@ export default async function PublicComplaintPage({
                 <MapPin className="w-5 h-5 text-indigo-500 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-slate-900">Location</p>
-                  <p className="text-sm text-slate-600">{complaint.location || "Not specified"}</p>
+                  <p className="text-sm text-slate-600">{complaint.sector?.name || "Not specified"}</p>
                 </div>
               </div>
 
@@ -150,21 +150,21 @@ export default async function PublicComplaintPage({
               </div>
             </div>
 
-            {complaint.aiSummary && (
+            {(complaint.sentiment !== null || complaint.urgency > 1) && (
               <div className="bg-indigo-50 rounded-lg p-4 mt-6 border border-indigo-100">
                 <h3 className="text-sm font-semibold text-indigo-800 flex items-center gap-2 mb-2">
                   <AlertCircle className="w-4 h-4" /> System Assessment
                 </h3>
-                <p className="text-sm text-indigo-900">{complaint.aiSummary}</p>
+                <p className="text-sm text-indigo-900">{(complaint.sentiment !== null || complaint.urgency > 1)}</p>
                 <div className="mt-3 flex gap-2">
-                  {complaint.urgencyScore && (
+                  {complaint.urgency && (
                     <Badge variant="outline" className="bg-white text-indigo-700 border-indigo-200">
-                      Urgency: {complaint.urgencyScore}/10
+                      Urgency: {complaint.urgency}/10
                     </Badge>
                   )}
-                  {complaint.sentimentScore !== null && (
+                  {complaint.sentiment !== null && (
                     <Badge variant="outline" className="bg-white text-indigo-700 border-indigo-200">
-                      Sentiment: {complaint.sentimentScore} 
+                      Sentiment: {complaint.sentiment} 
                     </Badge>
                   )}
                 </div>

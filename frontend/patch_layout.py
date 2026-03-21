@@ -1,4 +1,20 @@
-import type { Metadata } from 'next';
+import re
+
+with open("/home/gurkirat/Projects/DELHI_28/frontend/app/layout.tsx", "r") as f:
+    text = f.read()
+
+# Add imports
+imports = """import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import Link from "next/link";
+import { Providers } from "./providers";
+import { Navbar } from "@/components/Navbar";
+"""
+
+# Let's just create a Client Component for Navbar to handle "useSession" and hydration correctly, and wrap children in Providers in layout.tsx
+# Or, even better, if we make layout.tsx simple and use a Navbar:
+
+new_layout = """import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
@@ -34,3 +50,8 @@ export default function RootLayout({
     </html>
   );
 }
+"""
+
+with open("/home/gurkirat/Projects/DELHI_28/frontend/app/layout.tsx", "w") as f:
+    f.write(new_layout)
+

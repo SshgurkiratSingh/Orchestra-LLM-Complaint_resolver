@@ -16,8 +16,8 @@ VECTOR_STORE_DIR = BASE_DIR / "vector_store"
 # Imports (must be inside venv)
 # -----------------------------------------------------------------------
 import docx2txt
-from langchain.schema import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from dotenv import load_dotenv
@@ -72,8 +72,18 @@ def build_vector_store(chunks: list[Document]) -> None:
         model="models/text-embedding-004",
         google_api_key=GEMINI_API_KEY
     )
-    print("  Building FAISS index (this may take ~30s)...")
-    vector_store = FAISS.from_documents(chunks, embeddings)
+    print(f"  Building FAISS index for {len(chunks)} chunks...")
+    # FAISS.from_documents can be slow for many chunks, try batching if it hangs
+    batch_size = 50
+    vector_store = None
+    for i in range(0, len(chunks), batch_size):
+        batch = chunks[i:i + batch_size]
+        print(f"    Embedding batch {i//batch_size + 1}/{(len(chunks)-1)//batch_size + 1} ({len(batch)} chunks)...")
+        if vector_store is None:
+            vector_store = FAISS.from_documents(batch, embeddings)
+        else:
+            vector_store.add_documents(batch)
+    
     VECTOR_STORE_DIR.mkdir(parents=True, exist_ok=True)
     vector_store.save_local(str(VECTOR_STORE_DIR))
     print(f"  ✅ Vector store saved to {VECTOR_STORE_DIR}/")

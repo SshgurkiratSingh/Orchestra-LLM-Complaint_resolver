@@ -180,27 +180,58 @@ export default function AdminComplaintDetailsPage() {
               </CardContent>
             </Card>
 
-            {complaint.debateLogs && complaint.debateLogs.length > 0 && (
-              <Card className="shadow-sm border-slate-200 col-span-1 md:col-span-3 mt-6">
-                <CardHeader className="bg-white border-b border-slate-100 pb-4">
-                  <CardTitle className="text-lg">AI Multi-Agent Debate Log</CardTitle>
-                  <CardDescription>Transparent log of the LLM agents negotiating the outcome.</CardDescription>
-                </CardHeader>
-                <CardContent className="pt-4 space-y-4">
-                  {complaint.debateLogs.map((log: any) => (
-                    <div key={log.id} className="p-3 border rounded-md bg-slate-50">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="font-semibold text-purple-700 text-sm">{log.agentName}</span>
-                        <span className="text-xs text-slate-400">{new Date(log.createdAt).toLocaleString()}</span>
+          </div>
+
+          {complaint.debateLogs && complaint.debateLogs.length > 0 && (
+            <Card className="shadow-lg border-purple-500/20 col-span-1 md:col-span-3 mt-2 bg-slate-950/50 backdrop-blur-xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="border-b border-slate-800/50 pb-4 relative z-10 bg-slate-900/40">
+                <CardTitle className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-sm flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-purple-400 animate-pulse" />
+                  AI Multi-Agent Debate Log
+                </CardTitle>
+                <CardDescription className="text-slate-400 font-medium tracking-wide">
+                  Real-time transparent log of LLM agents negotiating the outcome.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-8 pb-12 relative z-10 max-h-[800px] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent">
+                <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-purple-500/10 before:via-purple-500/60 before:to-purple-500/10">
+                  {complaint.debateLogs.map((log: any, index: number) => (
+                    <div 
+                      key={log.id} 
+                      className={`relative flex items-center justify-between md:justify-normal ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} group`}
+                      style={{ animationDelay: `${index * 150}ms` }}
+                    >
+                      {/* Timeline dot */}
+                      <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-purple-600/80 shadow-[0_0_15px_rgba(168,85,247,0.8)] shrink-0 md:order-1 absolute left-0 md:left-1/2 z-10 -translate-x-1/2 ${index % 2 === 0 ? 'md:translate-x-1/2' : 'md:-translate-x-1/2'}`}>
+                        <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></div>
                       </div>
-                      <p className="text-slate-700 text-sm whitespace-pre-wrap">{log.message}</p>
+
+                      {/* Content Card */}
+                      <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-3rem)] ml-12 md:ml-0 p-5 border border-slate-700/60 rounded-xl bg-slate-900/80 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.25)] hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1 relative`}>
+                        {/* Connecting Arrow */}
+                        <div className={`hidden md:block absolute top-4 w-0 h-0 border-y-[8px] border-y-transparent ${index % 2 === 0 ? '-left-3 border-r-[12px] border-r-slate-700/60' : '-right-3 border-l-[12px] border-l-slate-700/60'}`}></div>
+                        <div className={`md:hidden absolute top-4 -left-3 w-0 h-0 border-y-[8px] border-y-transparent border-r-[12px] border-r-slate-700/60`}></div>
+
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 border-b border-slate-800/80 pb-3 gap-2 sm:gap-0">
+                          <div className="flex items-center gap-2">
+                            <Activity className="w-4 h-4 text-purple-400" />
+                            <span className="font-bold text-purple-300 text-sm tracking-widest uppercase bg-purple-900/40 px-3 py-1 rounded-full border border-purple-500/20">{log.agentName}</span>
+                          </div>
+                          <span className="text-xs text-slate-400 font-mono tracking-wider flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {new Date(log.createdAt).toLocaleString()}
+                          </span>
+                        </div>
+                        <p className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed font-sans">{log.message}</p>
+                      </div>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
-            )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-          </div>
         </div>
       </div>
     </div>

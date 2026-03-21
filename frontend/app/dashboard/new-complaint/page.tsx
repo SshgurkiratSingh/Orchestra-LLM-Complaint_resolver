@@ -27,7 +27,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import dynamic from "next/dynamic";
 import { Calendar, Building2, Mic, MicOff, Pencil, Trash2 } from "lucide-react";
-import { Copy } from "lucide-react"; // for later
+import { Copy, Loader2 } from "lucide-react"; // for later
+import { PageLoader } from "@/components/PageLoader";
 
 // Dynamically import MapSelector with no SSR to avoid window not defined errors
 const MapSelector = dynamic(() => import("@/components/MapSelector"), {
@@ -441,7 +442,7 @@ export default function NewComplaintPage() {
   };
 
   if (status === "loading")
-    return <div className="p-10 text-center text-slate-500">Loading...</div>;
+    return <PageLoader message="Preparing complaint form..." />;
   if (status === "unauthenticated") {
     router.push("/login");
     return null;
@@ -695,8 +696,13 @@ export default function NewComplaintPage() {
                       <div className="p-2 rounded-full h-8 w-8 flex items-center justify-center shrink-0 bg-slate-100 text-slate-700">
                         <Bot className="h-4 w-4" />
                       </div>
-                      <div className="px-4 py-2 rounded-2xl bg-white border text-slate-500 text-sm shadow-sm rounded-tl-none">
-                        Thinking...
+                      <div className="px-4 py-3 rounded-2xl bg-white border shadow-sm rounded-tl-none flex items-center gap-2">
+                        <span className="flex gap-1">
+                          <span className="h-2 w-2 rounded-full bg-indigo-400 animate-bounce [animation-delay:0ms]" />
+                          <span className="h-2 w-2 rounded-full bg-indigo-400 animate-bounce [animation-delay:150ms]" />
+                          <span className="h-2 w-2 rounded-full bg-indigo-400 animate-bounce [animation-delay:300ms]" />
+                        </span>
+                        <span className="text-xs text-slate-400">AI is thinking...</span>
                       </div>
                     </div>
                   )}
@@ -1046,7 +1052,9 @@ export default function NewComplaintPage() {
               disabled={!extractedTitle || isSubmitting}
               className="w-full bg-teal-600 hover:bg-teal-700 text-white"
             >
-              {isSubmitting ? "Filing Case..." : "File Formal Complaint"}
+              {isSubmitting ? (
+                <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Filing Case...</>
+              ) : "File Formal Complaint"}
             </Button>
           </CardFooter>
         </Card>

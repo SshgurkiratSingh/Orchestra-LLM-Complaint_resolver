@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -27,14 +28,17 @@ import {
   Clock,
   LogOut,
   BarChart,
-  Users
+  Users,
+  Search
 } from "lucide-react";
+import { PageLoader } from "@/components/PageLoader";
 
 export default function AdminDashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [complaints, setComplaints] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -62,12 +66,24 @@ export default function AdminDashboardPage() {
   }, [status, session]);
 
   if (status === "loading" || isLoading) {
-    return <div className="min-h-[80vh] flex items-center justify-center">Loading Admin Panel...</div>;
+    return <PageLoader message="Loading City Command Center..." />;
   }
 
   const activeCount = complaints.filter(c => !["RESOLVED", "CLOSED", "REJECTED"].includes(c.status)).length;
   const resolvedCount = complaints.filter(c => ["RESOLVED", "CLOSED"].includes(c.status)).length;
   const totalCount = complaints.length;
+
+  const filteredComplaints = complaints.filter(c => {
+    if (!searchQuery) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      (c.id && c.id.toLowerCase().includes(query)) ||
+      (c.user?.name && c.user.name.toLowerCase().includes(query)) ||
+      (c.user?.phone && c.user.phone.toLowerCase().includes(query)) ||
+      (c.title && c.title.toLowerCase().includes(query)) ||
+      (c.status && c.status.toLowerCase().includes(query))
+    );
+  });
 
   return (
     <div className="w-full bg-slate-50 min-h-screen py-8">
@@ -127,11 +143,24 @@ export default function AdminDashboardPage() {
 
         <Card className="shadow-md border-slate-200">
           <CardHeader className="bg-white border-b border-slate-100 pb-4">
-            <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-indigo-600" />
-              <div>
-                <CardTitle>Master Grievance Registry</CardTitle>
-                <CardDescription>All incoming and existing civic issues.</CardDescription>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-indigo-600" />
+                <div>
+                  <CardTitle>Master Grievance Registry</CardTitle>
+                  <CardDescription>All incoming and existing civic issues.</CardDescription>
+                </div>
+              </div>
+              
+              <div className="relative w-full sm:w-72">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+                <Input
+                  type="text"
+                  placeholder="Search complaints..."
+                  className="pl-9 bg-slate-50 border-slate-200"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
             </div>
           </CardHeader>
@@ -148,10 +177,10 @@ export default function AdminDashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {complaints.length === 0 ? (
-                  <TableRow><TableCell colSpan={6} className="h-24 text-center text-slate-500">No complaints exist.</TableCell></TableRow>
+                {filteredComplaints.length === 0 ? (
+                  <TableRow><TableCell colSpan={6} className="h-24 text-center text-slate-500">No complaints found.</TableCell></TableRow>
                 ) : (
-                  complaints.map((c) => (
+                  filteredComplaints.map((c) => (
                     <TableRow key={c.id} className="hover:bg-slate-50">
                       <TableCell className="font-medium text-slate-500">{c.id.substring(c.id.length - 6).toUpperCase()}</TableCell>
                       <TableCell><div className="flex items-center gap-2"><Users className="h-4 w-4 text-slate-400"/> {c.user?.name || c.user?.phone || 'Unknown'}</div></TableCell>

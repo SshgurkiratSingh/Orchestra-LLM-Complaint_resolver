@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertCircle, Building, Smartphone } from "lucide-react";
+import { AlertCircle, Building, Smartphone, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -151,7 +151,9 @@ export default function LoginPage() {
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white mt-6"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Authenticating..." : "Login with OTP"}
+                  {isLoading ? (
+                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Authenticating...</>
+                  ) : "Login with OTP"}
                 </Button>
               </form>
             </TabsContent>
@@ -187,7 +189,9 @@ export default function LoginPage() {
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white mt-6"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Authenticating..." : "Sign in to Dashboard"}
+                  {isLoading ? (
+                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Authenticating...</>
+                  ) : "Sign in to Dashboard"}
                 </Button>
               </form>
             </TabsContent>

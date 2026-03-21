@@ -13,7 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, FileText, FileType, AlertCircle, Edit2, UploadCloud, Check, Copy } from "lucide-react";
+import { ArrowLeft, FileText, FileType, AlertCircle, Edit2, UploadCloud, Check, Copy, Loader2 } from "lucide-react";
+import { PageLoader } from "@/components/PageLoader";
 
 export default function CitizenComplaintPage() {
   const { data: session, status } = useSession();
@@ -97,7 +98,7 @@ export default function CitizenComplaintPage() {
     }
   };
 
-  if (status === "loading" || isLoading) return <div className="min-h-[80vh] flex items-center justify-center">Loading...</div>;
+  if (status === "loading" || isLoading) return <PageLoader message="Loading complaint details..." />;
   if (!complaint) return <div className="min-h-[80vh] flex items-center justify-center text-red-500">Complaint not found.</div>;
 
   const canEdit = complaint.status === "PENDING" || complaint.status === "NEEDS_INFO";
@@ -146,7 +147,9 @@ export default function CitizenComplaintPage() {
                   />
                   <div className="flex gap-2">
                     <Button onClick={handleSaveEdit} className="bg-indigo-600" disabled={isSaving}>
-                      {isSaving ? "Saving..." : "Save Changes"}
+                      {isSaving ? (
+                        <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Saving...</>
+                      ) : "Save Changes"}
                     </Button>
                     <Button variant="outline" onClick={() => { setIsEditing(false); setEditDesc(complaint.description); }}>
                       Cancel
@@ -167,7 +170,9 @@ export default function CitizenComplaintPage() {
                   <input type="file" multiple ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
                   <Button variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
                     <UploadCloud className="h-4 w-4 mr-2" />
-                    {isUploading ? "Uploading..." : "Add Proof"}
+                    {isUploading ? (
+                      <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Uploading...</>
+                    ) : "Add Proof"}
                   </Button>
                 </div>
               )}
