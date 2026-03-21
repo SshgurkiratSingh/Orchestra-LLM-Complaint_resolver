@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -64,7 +65,7 @@ export default function NewComplaintPage() {
   const [showMap, setShowMap] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [language, setLanguage] = useState("English");
+  const { language, setLanguage } = useLanguage();
   const [isRecording, setIsRecording] = useState(false);
   const [activeTab, setActiveTab] = useState("ai");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
@@ -290,7 +291,7 @@ export default function NewComplaintPage() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({ messages: apiMessages, language }),
       });
 
       if (!res.ok) throw new Error("Failed to get response from assistant");
@@ -451,27 +452,27 @@ export default function NewComplaintPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       {error && (
-        <div className="mb-6 flex items-center gap-2 rounded-md bg-red-50 p-4 text-sm text-red-600 border border-red-100">
+        <div className="mb-6 flex items-center gap-2 rounded-md bg-red-50 dark:bg-red-950/30 p-4 text-sm text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900">
           <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>
       )}
 
-      <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
             File a Complaint
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             Choose an AI assistant or fill out the form manually.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-slate-700">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <label className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap">
             Language:
           </label>
           <select
-            className="border-slate-300 rounded-md text-sm p-1 max-w-[150px]"
+            className="border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-md text-xs sm:text-sm p-2 flex-1 sm:flex-none sm:max-w-[150px] min-h-[44px]"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           >
@@ -489,33 +490,33 @@ export default function NewComplaintPage() {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-2 mb-4">
+            <TabsList className="grid w-full grid-cols-2 mb-4 bg-slate-100 dark:bg-slate-800">
               <TabsTrigger
                 value="ai"
-                className="data-[state=active]:bg-indigo-50 data-[state=active]:text-indigo-700"
+                className="data-[state=active]:bg-indigo-50 dark:data-[state=active]:bg-indigo-950/30 data-[state=active]:text-indigo-700 dark:data-[state=active]:text-indigo-400"
               >
                 AI Assistant
               </TabsTrigger>
               <TabsTrigger
                 value="manual"
-                className="data-[state=active]:bg-teal-50 data-[state=active]:text-teal-700"
+                className="data-[state=active]:bg-teal-50 dark:data-[state=active]:bg-teal-950/30 data-[state=active]:text-teal-700 dark:data-[state=active]:text-teal-400"
               >
                 Manual Entry
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="ai" className="mt-0">
-              <Card className="shadow-lg border-slate-200 flex flex-col h-[75vh]">
-                <CardHeader className="bg-indigo-50/50 border-b pb-4">
+              <Card className="shadow-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 flex flex-col h-[60vh] sm:h-[70vh] lg:h-[75vh]">
+                <CardHeader className="bg-indigo-50/50 dark:bg-indigo-950/30 border-b dark:border-slate-800 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="bg-indigo-600 p-2 rounded-full text-white">
+                    <div className="bg-indigo-600 dark:bg-indigo-500 p-2 rounded-full text-white">
                       <Bot className="h-5 w-5" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-slate-900">
+                      <CardTitle className="text-xl text-slate-900 dark:text-slate-100">
                         AI Intake Assistant
                       </CardTitle>
-                      <CardDescription>
+                      <CardDescription className="dark:text-slate-400">
                         Describe your issue, and we'll draft the complaint for
                         you.
                       </CardDescription>
@@ -523,9 +524,9 @@ export default function NewComplaintPage() {
                   </div>
                 </CardHeader>
 
-                <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+                <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 dark:bg-slate-900">
                   {messages.length === 0 && (
-                    <div className="text-center text-slate-500 mt-10">
+                    <div className="text-center text-slate-500 dark:text-slate-400 mt-10">
                       Hi! What civic issue do you want to report today?
                     </div>
                   )}
@@ -548,7 +549,7 @@ export default function NewComplaintPage() {
                           )}
                         </div>
                         <div
-                          className={`px-4 py-2 rounded-2xl max-w-[80%] whitespace-pre-wrap text-sm ${isUser ? "bg-indigo-600 text-white rounded-tr-none" : "bg-white border text-slate-800 shadow-sm rounded-tl-none"} relative group`}
+                          className={`px-3 py-2 rounded-2xl max-w-[85%] sm:max-w-[80%] whitespace-pre-wrap text-xs sm:text-sm ${isUser ? "bg-indigo-600 dark:bg-indigo-500 text-white rounded-tr-none" : "bg-white dark:bg-slate-800 border dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm rounded-tl-none"} relative group`}
                         >
                           {editingMessageId === m.id ? (
                             <div className="flex flex-col gap-2 min-w-[200px]">
@@ -584,10 +585,10 @@ export default function NewComplaintPage() {
                                 <button
                                   type="button"
                                   onClick={() => startEditing(m)}
-                                  className="absolute -left-8 top-2 p-1 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-indigo-600 transition-opacity bg-white rounded-full shadow-sm border border-slate-100"
+                                  className="absolute -left-8 sm:-left-9 top-2 p-1.5 sm:p-1 text-slate-400 opacity-100 sm:opacity-0 group-hover:opacity-100 hover:text-indigo-600 transition-opacity bg-white dark:bg-slate-700 rounded-full shadow-sm border border-slate-100 dark:border-slate-600 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 flex items-center justify-center"
                                   title="Edit Message"
                                 >
-                                  <Pencil className="h-3 w-3" />
+                                  <Pencil className="h-4 w-4 sm:h-3 sm:w-3" />
                                 </button>
                               )}
 
@@ -709,10 +710,10 @@ export default function NewComplaintPage() {
                   <div ref={messagesEndRef} />
                 </CardContent>
 
-                <CardFooter className="border-t p-3 bg-slate-50">
+                <CardFooter className="border-t dark:border-slate-800 p-2 sm:p-3 bg-slate-50 dark:bg-slate-800">
                   <form
                     onSubmit={handleChatSubmit}
-                    className="flex gap-2 w-full flex-wrap md:flex-nowrap"
+                    className="flex gap-2 w-full flex-col sm:flex-row"
                   >
                     <input
                       id="file-upload"
@@ -722,18 +723,18 @@ export default function NewComplaintPage() {
                       className="hidden"
                       onChange={handleFileSelect}
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="shrink-0 cursor-pointer"
-                      onClick={() =>
-                        document.getElementById("file-upload")?.click()
-                      }
-                    >
-                      <UploadCloud className="h-4 w-4 mr-2 pointer-events-none" />
-                      {files?.length ? `${files.length} attached` : "Proof"}
-                    </Button>
-                    <div className="flex-1 flex gap-2 w-full">
+                    <div className="flex gap-2 w-full">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="shrink-0 cursor-pointer dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700 min-h-[44px] px-3"
+                        onClick={() =>
+                          document.getElementById("file-upload")?.click()
+                        }
+                      >
+                        <UploadCloud className="h-4 w-4 sm:mr-2 pointer-events-none" />
+                        <span className="hidden sm:inline">{files?.length ? `${files.length} attached` : "Proof"}</span>
+                      </Button>
                       <div className="flex-1 relative">
                         <Input
                           id="chat-input"
@@ -746,20 +747,20 @@ export default function NewComplaintPage() {
                                 ? "ਸਮੱਸਿਆ का ਵਰਣਨ ਕਰੋ..."
                                 : "Describe the issue..."
                           }
-                          className="w-full bg-white pr-10"
+                          className="w-full bg-white dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100 pr-12 min-h-[44px] text-base"
                           disabled={isLoading}
                         />
                         <Button
                           type="button"
                           variant="ghost"
                           size="icon"
-                          className={`absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 ${isRecording ? "text-red-500 animate-pulse" : "text-slate-400"}`}
+                          className={`absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 ${isRecording ? "text-red-500 animate-pulse" : "text-slate-400 dark:text-slate-500"}`}
                           onClick={() => toggleRecording("input")}
                         >
                           {isRecording ? (
-                            <MicOff className="h-4 w-4" />
+                            <MicOff className="h-5 w-5" />
                           ) : (
-                            <Mic className="h-4 w-4" />
+                            <Mic className="h-5 w-5" />
                           )}
                         </Button>
                       </div>
@@ -768,9 +769,9 @@ export default function NewComplaintPage() {
                         disabled={
                           isLoading || (!input.trim() && !files?.length)
                         }
-                        className="bg-indigo-600 hover:bg-indigo-700"
+                        className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 min-h-[44px] min-w-[44px] px-3"
                       >
-                        <Send className="h-4 w-4" />
+                        <Send className="h-5 w-5" />
                       </Button>
                     </div>
                   </form>
@@ -779,40 +780,41 @@ export default function NewComplaintPage() {
             </TabsContent>
 
             <TabsContent value="manual" className="mt-0">
-              <Card className="shadow-lg border-slate-200 h-[75vh] flex flex-col">
-                <CardHeader className="bg-teal-50/50 border-b pb-4">
+              <Card className="shadow-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 h-[60vh] sm:h-[70vh] lg:h-[75vh] flex flex-col">
+                <CardHeader className="bg-teal-50/50 dark:bg-teal-950/30 border-b dark:border-slate-800 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="bg-teal-600 p-2 rounded-full text-white">
+                    <div className="bg-teal-600 dark:bg-teal-500 p-2 rounded-full text-white">
                       <User className="h-5 w-5" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-slate-900">
+                      <CardTitle className="text-xl text-slate-900 dark:text-slate-100">
                         Manual Complaint Entry
                       </CardTitle>
-                      <CardDescription>
+                      <CardDescription className="dark:text-slate-400">
                         Fill in the details yourself.
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-1 overflow-y-auto p-6 space-y-5">
+                <CardContent className="flex-1 overflow-y-auto p-6 space-y-5 dark:bg-slate-900">
                   <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-slate-700">
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                       Complaint Title *
                     </label>
                     <Input
                       placeholder="e.g., Pothole on Main Street"
                       value={extractedTitle}
                       onChange={(e) => setExtractedTitle(e.target.value)}
+                      className="dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-700">
+                      <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                         Category
                       </label>
                       <select
-                        className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2"
+                        className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 dark:focus-visible:ring-slate-400 focus-visible:ring-offset-2"
                         value={extractedType}
                         onChange={(e) => setExtractedType(e.target.value)}
                       >
@@ -825,25 +827,26 @@ export default function NewComplaintPage() {
                       </select>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-700">
+                      <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                         Date of Incident
                       </label>
                       <Input
                         type="date"
                         value={extractedDate}
                         onChange={(e) => setExtractedDate(e.target.value)}
+                        className="dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                       />
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <div className="flex justify-between items-center">
-                      <label className="text-sm font-medium text-slate-700">
+                      <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                         Location
                       </label>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-6 text-xs text-indigo-600"
+                        className="h-6 text-xs text-indigo-600 dark:text-indigo-400"
                         onClick={() => setShowMap(!showMap)}
                       >
                         <MapPin className="h-3 w-3 mr-1" />{" "}
@@ -854,9 +857,10 @@ export default function NewComplaintPage() {
                       placeholder="Address or Location details"
                       value={extractedLocation}
                       onChange={(e) => setExtractedLocation(e.target.value)}
+                      className="dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                     {showMap && (
-                      <div className="mt-2 h-48 rounded-md overflow-hidden border">
+                      <div className="mt-2 h-48 rounded-md overflow-hidden border dark:border-slate-700">
                         <MapSelector
                           onSelect={(lat, lng) => {
                             setExtractedLocation(
@@ -870,12 +874,12 @@ export default function NewComplaintPage() {
                     )}
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-slate-700">
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                       Description
                     </label>
                     <div className="relative">
                       <textarea
-                        className="flex min-h-[120px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 pr-10"
+                        className="flex min-h-[120px] w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 px-3 py-2 text-sm ring-offset-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 dark:focus-visible:ring-slate-400 focus-visible:ring-offset-2 pr-10"
                         placeholder="Provide detailed information about your complaint..."
                         value={extractedDesc}
                         onChange={(e) => setExtractedDesc(e.target.value)}
@@ -884,7 +888,7 @@ export default function NewComplaintPage() {
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className={`absolute right-2 bottom-2 h-8 w-8 ${isRecording ? "text-red-500 animate-pulse bg-red-50" : "text-slate-400 bg-slate-50"} hover:bg-slate-100 rounded-full`}
+                        className={`absolute right-2 bottom-2 h-8 w-8 ${isRecording ? "text-red-500 animate-pulse bg-red-50 dark:bg-red-950/30" : "text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800"} hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full`}
                         onClick={() => toggleRecording("desc")}
                       >
                         {isRecording ? (
@@ -896,7 +900,7 @@ export default function NewComplaintPage() {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="border-t p-4 bg-slate-50">
+                <CardFooter className="border-t dark:border-slate-800 p-4 bg-slate-50 dark:bg-slate-800">
                   <div className="w-full flex justify-between items-center">
                     <div className="flex items-center gap-2 relative">
                       <input
@@ -912,6 +916,7 @@ export default function NewComplaintPage() {
                         onClick={() =>
                           document.getElementById("manual-file-upload")?.click()
                         }
+                        className="dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"
                       >
                         <UploadCloud className="h-4 w-4 mr-2" />
                         {accumulatedFiles.length
@@ -927,14 +932,14 @@ export default function NewComplaintPage() {
         </div>
 
         {/* Draft Panel */}
-        <Card className="shadow-lg border-slate-200 h-fit sticky top-6">
-          <CardHeader className="bg-slate-50 border-b pb-4">
+        <Card className="shadow-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 h-fit lg:sticky lg:top-6">
+          <CardHeader className="bg-slate-50 dark:bg-slate-800 border-b dark:border-slate-700 pb-4">
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle className="text-lg text-slate-800 flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-teal-600" /> Draft Case
+                <CardTitle className="text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-teal-600 dark:text-teal-400" /> Draft Case
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="dark:text-slate-400">
                   Fields automatically populate as we chat.
                 </CardDescription>
               </div>
@@ -942,7 +947,7 @@ export default function NewComplaintPage() {
                 variant="ghost"
                 size="sm"
                 onClick={handleClearCase}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50 -mt-1 h-8 px-2 flex"
+                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/30 -mt-1 h-8 px-2 flex"
               >
                 <Trash2 className="h-4 w-4 mr-1" /> Clear
               </Button>
@@ -950,11 +955,11 @@ export default function NewComplaintPage() {
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                 Generated Title
               </p>
               <Input
-                className="text-sm font-medium text-slate-900 border bg-white"
+                className="text-sm font-medium text-slate-900 dark:text-slate-100 border bg-white dark:bg-slate-800 dark:border-slate-700"
                 value={extractedTitle}
                 onChange={(e) => setExtractedTitle(e.target.value)}
                 placeholder="Title..."
@@ -963,12 +968,12 @@ export default function NewComplaintPage() {
 
             {extractedType && (
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                   Category
                 </p>
                 <Badge
                   variant="secondary"
-                  className="text-xs bg-indigo-50 text-indigo-700 border-indigo-200"
+                  className="text-xs bg-indigo-50 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-900"
                 >
                   {extractedType}
                 </Badge>
@@ -977,11 +982,11 @@ export default function NewComplaintPage() {
 
             {extractedLocation && (
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
                   <MapPin className="h-3 w-3" /> Location
                 </p>
                 <Input
-                  className="text-sm font-medium text-slate-900 border bg-white"
+                  className="text-sm font-medium text-slate-900 dark:text-slate-100 border bg-white dark:bg-slate-800 dark:border-slate-700"
                   value={extractedLocation}
                   onChange={(e) => setExtractedLocation(e.target.value)}
                   placeholder="Location..."
@@ -991,11 +996,11 @@ export default function NewComplaintPage() {
 
             {extractedDate && (
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
                   <Calendar className="h-3 w-3" /> Date
                 </p>
                 <Input
-                  className="text-sm font-medium text-slate-900 border bg-white"
+                  className="text-sm font-medium text-slate-900 dark:text-slate-100 border bg-white dark:bg-slate-800 dark:border-slate-700"
                   value={extractedDate}
                   onChange={(e) => setExtractedDate(e.target.value)}
                   placeholder="Date/Time..."
@@ -1005,11 +1010,11 @@ export default function NewComplaintPage() {
 
             {extractedDepartment && (
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
                   <Building2 className="h-3 w-3" /> Handling Dept
                 </p>
                 <Input
-                  className="text-sm font-medium text-slate-900 border bg-white"
+                  className="text-sm font-medium text-slate-900 dark:text-slate-100 border bg-white dark:bg-slate-800 dark:border-slate-700"
                   value={extractedDepartment}
                   onChange={(e) => setExtractedDepartment(e.target.value)}
                   placeholder="Department..."
@@ -1018,11 +1023,11 @@ export default function NewComplaintPage() {
             )}
 
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                 Details (Summary)
               </p>
               <textarea
-                className="text-sm text-slate-700 border rounded-md p-2 bg-white min-h-[5rem] w-full"
+                className="text-sm text-slate-700 dark:text-slate-300 border dark:border-slate-700 rounded-md p-2 bg-white dark:bg-slate-800 min-h-[5rem] w-full"
                 value={extractedDesc}
                 onChange={(e) => setExtractedDesc(e.target.value)}
                 placeholder="Description..."
@@ -1030,27 +1035,27 @@ export default function NewComplaintPage() {
             </div>
 
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                 Attached Proofs
               </p>
               <div className="flex flex-wrap gap-2 mt-1">
                 {accumulatedFiles.length > 0 ? (
                   accumulatedFiles.map((f, i) => (
-                    <Badge key={i} variant="secondary" className="text-xs">
+                    <Badge key={i} variant="secondary" className="text-xs dark:bg-slate-800 dark:text-slate-300">
                       {f.name}
                     </Badge>
                   ))
                 ) : (
-                  <span className="text-xs text-slate-400">No proofs uploaded yet.</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">No proofs uploaded yet.</span>
                 )}
               </div>
             </div>
           </CardContent>
-          <CardFooter className="pt-2 border-t">
+          <CardFooter className="pt-2 border-t dark:border-slate-700">
             <Button
               onClick={handleFinalSubmit}
               disabled={!extractedTitle || isSubmitting}
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white"
+              className="w-full bg-teal-600 hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600 text-white"
             >
               {isSubmitting ? (
                 <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Filing Case...</>

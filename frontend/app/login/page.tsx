@@ -81,41 +81,42 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-lg border-indigo-100">
+    <div className="flex min-h-[80vh] items-center justify-center p-4 sm:p-6">
+      <Card className="w-full max-w-md shadow-lg border-indigo-100 dark:border-indigo-900 dark:bg-slate-900">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
             <ShieldIcon />
           </div>
-          <CardTitle className="text-2xl font-bold text-slate-900">
+          <CardTitle className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
             LOKSETU Access
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="dark:text-slate-400 text-sm">
             Secure entry to the civic grievance network
           </CardDescription>
         </CardHeader>
         <CardContent>
           {error && (
-            <div className="mb-4 flex items-center gap-2 rounded-md bg-red-50 p-3 text-sm text-red-600">
+            <div className="mb-4 flex items-center gap-2 rounded-md bg-red-50 dark:bg-red-950/30 p-3 text-sm text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900">
               <AlertCircle className="h-4 w-4" />
               <span>{error}</span>
             </div>
           )}
 
           <Tabs defaultValue="citizen" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6 bg-slate-100">
+            <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 bg-slate-100 dark:bg-slate-800">
               <TabsTrigger
                 value="citizen"
-                className="data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+                className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-indigo-600 dark:data-[state=active]:text-indigo-400 data-[state=active]:shadow-sm text-xs sm:text-sm min-h-[44px]"
               >
-                <Smartphone className="h-4 w-4 mr-2" />
-                Citizen (OTP)
+                <Smartphone className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden xs:inline">Citizen (OTP)</span>
+                <span className="xs:hidden">Citizen</span>
               </TabsTrigger>
               <TabsTrigger
                 value="official"
-                className="data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+                className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-indigo-600 dark:data-[state=active]:text-indigo-400 data-[state=active]:shadow-sm text-xs sm:text-sm min-h-[44px]"
               >
-                <Building className="h-4 w-4 mr-2" />
+                <Building className="h-4 w-4 mr-1 sm:mr-2" />
                 Official
               </TabsTrigger>
             </TabsList>
@@ -123,18 +124,18 @@ export default function LoginPage() {
             <TabsContent value="citizen">
               <form onSubmit={handleCitizenLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Mobile Number</Label>
+                  <Label htmlFor="phone" className="dark:text-slate-300 text-sm">Mobile Number</Label>
                   <Input
                     id="phone"
                     placeholder="+91 9999999999"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="border-slate-200 focus-visible:ring-indigo-600"
+                    className="border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-indigo-600 dark:focus-visible:ring-indigo-400 min-h-[44px] text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="otp">One Time Password (OTP)</Label>
+                  <Label htmlFor="otp" className="dark:text-slate-300 text-sm">One Time Password (OTP)</Label>
                   <Input
                     id="otp"
                     placeholder="Enter 123456 for demo"
@@ -142,13 +143,13 @@ export default function LoginPage() {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     required
-                    className="border-slate-200 focus-visible:ring-indigo-600"
+                    className="border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-indigo-600 dark:focus-visible:ring-indigo-400 min-h-[44px] text-base"
                   />
                 </div>
                 <Button
                   type="button"
                   onClick={handleCitizenLogin}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white mt-6"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white mt-6 min-h-[48px]"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -161,7 +162,7 @@ export default function LoginPage() {
             <TabsContent value="official">
               <form onSubmit={handleOfficialLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Official Email</Label>
+                  <Label htmlFor="email" className="dark:text-slate-300 text-sm">Official Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -169,11 +170,11 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="border-slate-200 focus-visible:ring-indigo-600"
+                    className="border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-indigo-600 dark:focus-visible:ring-indigo-400 min-h-[44px] text-base"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="dark:text-slate-300 text-sm">Password</Label>
                   <Input
                     id="password"
                     type="password"
@@ -181,12 +182,12 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="border-slate-200 focus-visible:ring-indigo-600"
+                    className="border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-indigo-600 dark:focus-visible:ring-indigo-400 min-h-[44px] text-base"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white mt-6"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white mt-6 min-h-[48px]"
                   disabled={isLoading}
                 >
                   {isLoading ? (
