@@ -1,0 +1,18 @@
+[main 2a33af8] feat: files addon with cleaned secrets
+ 18 files changed, 1467 insertions(+), 8 deletions(-)
+ create mode 100644 .gitignore
+ create mode 100644 backend/test_bedrock_chat.py
+ create mode 100644 backend/test_stream.py
+ create mode 100644 git_status.txt
+ create mode 100644 list_profiles.py
+ create mode 100644 patch_page.py
+ create mode 100644 replace_backend.js
+ create mode 100644 replace_front.js
+ create mode 100644 replace_proxy.js
+ create mode 100644 rewrite_page.js
+ create mode 100644 test_bearer.py
+ create mode 100644 test_converse.py
+ create mode 100644 test_frontend.js
+ create mode 100644 test_parse.js
+ create mode 100644 test_regex.js
+ create mode 100644 test_vercel.ts

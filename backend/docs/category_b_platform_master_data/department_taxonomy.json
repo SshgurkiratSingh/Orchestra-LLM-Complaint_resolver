@@ -1,0 +1,787 @@
+[
+  {
+    "department_id": "DEPT-MCC-ENG",
+    "department_name": "MCC Engineering Department",
+    "parent_department": "Municipal Corporation Chandigarh",
+    "wing": "Engineering",
+    "roles": [
+      {
+        "role_id": "ROLE-MCC-ENG-01",
+        "role_title": "Executive Engineer (Roads & Bridges)",
+        "seniority": "L4-Head",
+        "mock_person_name": "Er. Ramesh Chandra Sharma",
+        "mock_email": "ee.roads@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2701101",
+        "areas_assigned": "All Sectors"
+      },
+      {
+        "role_id": "ROLE-MCC-ENG-02",
+        "role_title": "Junior Engineer (North Zone)",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Er. Harpreet Singh",
+        "mock_email": "je.north@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2701102",
+        "areas_assigned": [
+          "Sector 1",
+          "Sector 2",
+          "Sector 3",
+          "Sector 4",
+          "Sector 5",
+          "Sector 6",
+          "Sector 7"
+        ]
+      },
+      {
+        "role_id": "ROLE-MCC-ENG-03",
+        "role_title": "Junior Engineer (South Zone)",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Er. Sukhwinder Kaur",
+        "mock_email": "je.south@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2701103",
+        "areas_assigned": [
+          "Sector 35",
+          "Sector 38",
+          "Sector 43",
+          "Sector 44",
+          "Sector 45",
+          "Manimajra"
+        ]
+      },
+      {
+        "role_id": "ROLE-MCC-ENG-04",
+        "role_title": "Field Supervisor (Roads)",
+        "seniority": "L1-Field",
+        "mock_person_name": "Jagtar Singh",
+        "mock_email": "fs.roads@mcc.chandigarh.gov.in",
+        "mock_phone": "9872001001",
+        "areas_assigned": "Central Sectors 15-26"
+      }
+    ],
+    "complaint_categories": [
+      "Roads",
+      "Pothole",
+      "Bridge Repair",
+      "Street Repair",
+      "Footpath",
+      "Road Divider",
+      "Drainage Road",
+      "Building Repair"
+    ],
+    "sla_hours_default": 72
+  },
+  {
+    "department_id": "DEPT-MCC-PH",
+    "department_name": "MCC Public Health Department",
+    "parent_department": "Municipal Corporation Chandigarh",
+    "wing": "Public Health",
+    "roles": [
+      {
+        "role_id": "ROLE-MCC-PH-01",
+        "role_title": "Executive Engineer (Public Health)",
+        "seniority": "L4-Head",
+        "mock_person_name": "Er. Kuldeep Sharma",
+        "mock_email": "ee.ph@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2702201",
+        "areas_assigned": "All Sectors"
+      },
+      {
+        "role_id": "ROLE-MCC-PH-02",
+        "role_title": "Sanitary Inspector",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Gurmail Singh",
+        "mock_email": "si.central@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2702202",
+        "areas_assigned": [
+          "Sector 15",
+          "Sector 17",
+          "Sector 22",
+          "Sector 26",
+          "Sector 35"
+        ]
+      },
+      {
+        "role_id": "ROLE-MCC-PH-03",
+        "role_title": "Water Supply Supervisor",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Paramjit Kaur",
+        "mock_email": "ws.super@mcc.chandigarh.gov.in",
+        "mock_phone": "9876502003",
+        "areas_assigned": "South & South-East Sectors"
+      },
+      {
+        "role_id": "ROLE-MCC-PH-04",
+        "role_title": "Sweeping & Sanitation Field Worker",
+        "seniority": "L1-Field",
+        "mock_person_name": "Raju Kumar",
+        "mock_email": "sw.field@mcc.chandigarh.gov.in",
+        "mock_phone": "9872004004",
+        "areas_assigned": "Sector 22, Sector 23"
+      }
+    ],
+    "complaint_categories": [
+      "Water Supply",
+      "Sewerage",
+      "Garbage/Sanitation",
+      "Public Toilet",
+      "Mosquito/Vector",
+      "Sewer Overflow",
+      "Drain Choked",
+      "Water Leakage"
+    ],
+    "sla_hours_default": 48
+  },
+  {
+    "department_id": "DEPT-MCC-HORT",
+    "department_name": "MCC Horticulture Department",
+    "parent_department": "Municipal Corporation Chandigarh",
+    "wing": "Engineering",
+    "roles": [
+      {
+        "role_id": "ROLE-MCC-HORT-01",
+        "role_title": "Director Horticulture",
+        "seniority": "L4-Head",
+        "mock_person_name": "Dr. Amarjit Brar",
+        "mock_email": "director.hort@chandigarh.gov.in",
+        "mock_phone": "0172-2703301",
+        "areas_assigned": "All Areas"
+      },
+      {
+        "role_id": "ROLE-MCC-HORT-02",
+        "role_title": "Horticulture Inspector",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Sukhdeep Kaur",
+        "mock_email": "hi.parks@chandigarh.gov.in",
+        "mock_phone": "0172-2703302",
+        "areas_assigned": "Green Belts, Sector Parks"
+      },
+      {
+        "role_id": "ROLE-MCC-HORT-03",
+        "role_title": "Tree Guard / Mali",
+        "seniority": "L1-Field",
+        "mock_person_name": "Bhupinder Singh",
+        "mock_email": "mali.north@chandigarh.gov.in",
+        "mock_phone": "9876003003",
+        "areas_assigned": "Sector 1 to Sector 14"
+      }
+    ],
+    "complaint_categories": [
+      "Parks/Trees",
+      "Tree Felling",
+      "Tree Trimming",
+      "Green Belt Encroachment",
+      "Illegal Cutting",
+      "Park Maintenance"
+    ],
+    "sla_hours_default": 96
+  },
+  {
+    "department_id": "DEPT-MCC-REV",
+    "department_name": "MCC Revenue & Tax Department",
+    "parent_department": "Municipal Corporation Chandigarh",
+    "wing": "Revenue",
+    "roles": [
+      {
+        "role_id": "ROLE-MCC-REV-01",
+        "role_title": "Municipal Tax Officer",
+        "seniority": "L4-Head",
+        "mock_person_name": "Sh. Rajinder Pal Singh",
+        "mock_email": "mto@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2704401",
+        "areas_assigned": "All Areas"
+      },
+      {
+        "role_id": "ROLE-MCC-REV-02",
+        "role_title": "Trade License Inspector",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Savita Rani",
+        "mock_email": "tl.inspector@mcc.chandigarh.gov.in",
+        "mock_phone": "0172-2704402",
+        "areas_assigned": "Commercial Sectors"
+      },
+      {
+        "role_id": "ROLE-MCC-REV-03",
+        "role_title": "Property Tax Assessor",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Pankaj Verma",
+        "mock_email": "pt.assessor@mcc.chandigarh.gov.in",
+        "mock_phone": "9872004404",
+        "areas_assigned": "All Residential Sectors"
+      }
+    ],
+    "complaint_categories": [
+      "Property/Estate",
+      "Property Tax",
+      "Trade License",
+      "Illegal Market",
+      "Revenue Related"
+    ],
+    "sla_hours_default": 120
+  },
+  {
+    "department_id": "DEPT-MCC-TP",
+    "department_name": "MCC Town Planning Department",
+    "parent_department": "Municipal Corporation Chandigarh",
+    "wing": "Engineering",
+    "roles": [
+      {
+        "role_id": "ROLE-MCC-TP-01",
+        "role_title": "Chief Town Planner",
+        "seniority": "L4-Head",
+        "mock_person_name": "Er. Neelam Sharma",
+        "mock_email": "ctp@chandigarh.gov.in",
+        "mock_phone": "0172-2705501",
+        "areas_assigned": "All Areas"
+      },
+      {
+        "role_id": "ROLE-MCC-TP-02",
+        "role_title": "Enforcement Officer (Building)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Gurpreet Sandhu",
+        "mock_email": "eo.building@chandigarh.gov.in",
+        "mock_phone": "9876005502",
+        "areas_assigned": "Sectors 1-30"
+      },
+      {
+        "role_id": "ROLE-MCC-TP-03",
+        "role_title": "Zoning Inspector",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Manpreet Singh",
+        "mock_email": "zi@chandigarh.gov.in",
+        "mock_phone": "9872005503",
+        "areas_assigned": "Extended Sectors 48-56"
+      }
+    ],
+    "complaint_categories": [
+      "Building Violation",
+      "Encroachment",
+      "Illegal Construction",
+      "Unauthorized Extension",
+      "Zoning Violation"
+    ],
+    "sla_hours_default": 96
+  },
+  {
+    "department_id": "DEPT-POLICE",
+    "department_name": "Chandigarh Police",
+    "parent_department": "Ministry of Home Affairs / UT Administration",
+    "wing": "Law & Order",
+    "roles": [
+      {
+        "role_id": "ROLE-POLICE-01",
+        "role_title": "Senior Superintendent of Police",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "IPS Vikramjit Singh Duggal",
+        "mock_email": "ssp@chandigarhpolice.gov.in",
+        "mock_phone": "0172-2740200",
+        "areas_assigned": "All of Chandigarh"
+      },
+      {
+        "role_id": "ROLE-POLICE-02",
+        "role_title": "Station House Officer (SHO)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Insp. Balbir Singh",
+        "mock_email": "sho.sec17@chandigarhpolice.gov.in",
+        "mock_phone": "0172-2700017",
+        "areas_assigned": "Sector 17, Sector 18, Sector 19, Sector 20"
+      },
+      {
+        "role_id": "ROLE-POLICE-03",
+        "role_title": "Beat Officer",
+        "seniority": "L1-Field",
+        "mock_person_name": "HC Jaswinder Kumar",
+        "mock_email": "beat.sec22@chandigarhpolice.gov.in",
+        "mock_phone": "9876006003",
+        "areas_assigned": "Sector 22"
+      }
+    ],
+    "complaint_categories": [
+      "Stray Animals",
+      "Noise Pollution",
+      "Encroachment",
+      "Law & Order",
+      "Missing Person",
+      "Eve Teasing",
+      "Theft",
+      "Anti-Social Activities"
+    ],
+    "sla_hours_default": 24
+  },
+  {
+    "department_id": "DEPT-TRAFFIC",
+    "department_name": "Traffic Police Chandigarh",
+    "parent_department": "Chandigarh Police",
+    "wing": "Law & Order",
+    "roles": [
+      {
+        "role_id": "ROLE-TRAFFIC-01",
+        "role_title": "Superintendent of Police (Traffic)",
+        "seniority": "L4-Head",
+        "mock_person_name": "IPS Amandeep Kaur",
+        "mock_email": "sp.traffic@chandigarhpolice.gov.in",
+        "mock_phone": "0172-2740100",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-TRAFFIC-02",
+        "role_title": "Traffic Inspector",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Insp. Daljit Singh",
+        "mock_email": "ti.central@chandigarhpolice.gov.in",
+        "mock_phone": "9876007002",
+        "areas_assigned": "ISBT, Sector 17, Sector 22, Sector 35"
+      },
+      {
+        "role_id": "ROLE-TRAFFIC-03",
+        "role_title": "Traffic Constable",
+        "seniority": "L1-Field",
+        "mock_person_name": "Const. Suresh Pal",
+        "mock_email": "tc.sec43@chandigarhpolice.gov.in",
+        "mock_phone": "9876007003",
+        "areas_assigned": "Sector 43, Sector 44"
+      }
+    ],
+    "complaint_categories": [
+      "Traffic",
+      "Signal Malfunction",
+      "Wrong Parking",
+      "Road Congestion",
+      "Accident Spot",
+      "No Traffic Police"
+    ],
+    "sla_hours_default": 12
+  },
+  {
+    "department_id": "DEPT-ESTATE",
+    "department_name": "Estate Office Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Revenue",
+    "roles": [
+      {
+        "role_id": "ROLE-ESTATE-01",
+        "role_title": "Estate Officer",
+        "seniority": "L4-Head",
+        "mock_person_name": "Sh. Harinder Pal Verma",
+        "mock_email": "estate.officer@chandigarh.gov.in",
+        "mock_phone": "0172-2700000",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-ESTATE-02",
+        "role_title": "Property Manager",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Sh. Ravinder Kumar",
+        "mock_email": "pm.estate@chandigarh.gov.in",
+        "mock_phone": "0172-2700001",
+        "areas_assigned": "Residential Sectors"
+      },
+      {
+        "role_id": "ROLE-ESTATE-03",
+        "role_title": "Field Surveyor",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Balwant Singh",
+        "mock_email": "surveyor.estate@chandigarh.gov.in",
+        "mock_phone": "9872008003",
+        "areas_assigned": "Extended Sectors 48-56, Dhanas"
+      }
+    ],
+    "complaint_categories": [
+      "Property/Estate",
+      "Unauthorized Occupation",
+      "Property Allotment",
+      "Land Dispute",
+      "Encroachment on Govt Land"
+    ],
+    "sla_hours_default": 120
+  },
+  {
+    "department_id": "DEPT-CHB",
+    "department_name": "Chandigarh Housing Board (CHB)",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Administration",
+    "roles": [
+      {
+        "role_id": "ROLE-CHB-01",
+        "role_title": "Chief Executive Officer (CHB)",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "Sh. Vikas Garg IAS",
+        "mock_email": "ceo.chb@chandigarh.gov.in",
+        "mock_phone": "0172-2709100",
+        "areas_assigned": "All CHB Properties"
+      },
+      {
+        "role_id": "ROLE-CHB-02",
+        "role_title": "Housing Manager",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Jasvir Kaur",
+        "mock_email": "hm.chb@chandigarh.gov.in",
+        "mock_phone": "0172-2709101",
+        "areas_assigned": "CHB Sectors - 38, 45, 48-56"
+      },
+      {
+        "role_id": "ROLE-CHB-03",
+        "role_title": "Maintenance Supervisor",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Gurjant Singh",
+        "mock_email": "ms.chb@chandigarh.gov.in",
+        "mock_phone": "9872009003",
+        "areas_assigned": "CHB Colonies, EWS Flats"
+      }
+    ],
+    "complaint_categories": [
+      "Building Violation",
+      "CHB Property",
+      "Housing Allotment",
+      "Maintenance",
+      "Structural Issues"
+    ],
+    "sla_hours_default": 96
+  },
+  {
+    "department_id": "DEPT-CPDL",
+    "department_name": "CPDL / Chandigarh Electricity Department",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Utilities",
+    "roles": [
+      {
+        "role_id": "ROLE-CPDL-01",
+        "role_title": "Chief Engineer (Electricity)",
+        "seniority": "L4-Head",
+        "mock_person_name": "Er. Mohinder Singh",
+        "mock_email": "ce.electricity@chandigarh.gov.in",
+        "mock_phone": "0172-2660100",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-CPDL-02",
+        "role_title": "Assistant Engineer (Streetlights)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Er. Gurmeet Pal",
+        "mock_email": "ae.streetlight@chandigarh.gov.in",
+        "mock_phone": "0172-2660101",
+        "areas_assigned": "Sectors 1-30"
+      },
+      {
+        "role_id": "ROLE-CPDL-03",
+        "role_title": "Lineman",
+        "seniority": "L1-Field",
+        "mock_person_name": "Rajesh Pal",
+        "mock_email": "lineman.sec22@chandigarh.gov.in",
+        "mock_phone": "9876010003",
+        "areas_assigned": "Sector 22, Sector 23, Sector 24"
+      },
+      {
+        "role_id": "ROLE-CPDL-04",
+        "role_title": "Sub Divisional Engineer (SDO)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Er. Hardeep Kaur",
+        "mock_email": "sdo.south@chandigarh.gov.in",
+        "mock_phone": "9876010004",
+        "areas_assigned": "Sectors 31-50, Manimajra"
+      }
+    ],
+    "complaint_categories": [
+      "Electricity",
+      "Streetlights",
+      "Power Outage",
+      "High Voltage",
+      "Faulty Meter",
+      "Billing Error",
+      "Street Light Not Working",
+      "Transformer Fault"
+    ],
+    "sla_hours_default": 24
+  },
+  {
+    "department_id": "DEPT-CTU",
+    "department_name": "Chandigarh Transport Undertaking (CTU)",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Utilities",
+    "roles": [
+      {
+        "role_id": "ROLE-CTU-01",
+        "role_title": "General Manager (CTU)",
+        "seniority": "L4-Head",
+        "mock_person_name": "Sh. Arvinder Singh Bhandari",
+        "mock_email": "gm.ctu@chandigarh.gov.in",
+        "mock_phone": "0172-2702700",
+        "areas_assigned": "All CTU Routes"
+      },
+      {
+        "role_id": "ROLE-CTU-02",
+        "role_title": "Route Inspector",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Manjit Singh",
+        "mock_email": "ri.ctu@chandigarh.gov.in",
+        "mock_phone": "9876011002",
+        "areas_assigned": "ISBT Sector 43, All Routes"
+      },
+      {
+        "role_id": "ROLE-CTU-03",
+        "role_title": "Bus Driver / Conductor",
+        "seniority": "L1-Field",
+        "mock_person_name": "Gurpreet Masih",
+        "mock_email": "driver.ctu@chandigarh.gov.in",
+        "mock_phone": "9876011003",
+        "areas_assigned": "Route 15-22-35"
+      }
+    ],
+    "complaint_categories": [
+      "Traffic",
+      "Public Transport",
+      "Bus Delay",
+      "Bus Driver Behavior",
+      "ISBT Facility"
+    ],
+    "sla_hours_default": 48
+  },
+  {
+    "department_id": "DEPT-EDUC",
+    "department_name": "Education Department Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Social Services",
+    "roles": [
+      {
+        "role_id": "ROLE-EDUC-01",
+        "role_title": "Director School Education",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "Dr. Hardeep Singh",
+        "mock_email": "dse@chandigarh.gov.in",
+        "mock_phone": "0172-2700500",
+        "areas_assigned": "All Chandigarh Schools"
+      },
+      {
+        "role_id": "ROLE-EDUC-02",
+        "role_title": "Block Education Officer",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Kulwant Kaur",
+        "mock_email": "beo.south@chandigarh.gov.in",
+        "mock_phone": "9876012002",
+        "areas_assigned": "South Zone Schools"
+      },
+      {
+        "role_id": "ROLE-EDUC-03",
+        "role_title": "School Principal",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Sh. Darshan Singh",
+        "mock_email": "principal.gss22@chandigarh.gov.in",
+        "mock_phone": "0172-2722001",
+        "areas_assigned": "Govt. Sr. Sec. School Sector 22"
+      }
+    ],
+    "complaint_categories": [
+      "Education",
+      "School Infrastructure",
+      "Mid-day Meal",
+      "Teacher Absence",
+      "Scholarship Issue"
+    ],
+    "sla_hours_default": 120
+  },
+  {
+    "department_id": "DEPT-HEALTH",
+    "department_name": "Health Department / NHM Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Social Services",
+    "roles": [
+      {
+        "role_id": "ROLE-HEALTH-01",
+        "role_title": "Director Health Services",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "Dr. Suman Sharma",
+        "mock_email": "dhs@chandigarh.gov.in",
+        "mock_phone": "0172-2700700",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-HEALTH-02",
+        "role_title": "Medical Officer (Dispensary)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Dr. Gurinder Singh",
+        "mock_email": "mo.sec22@chandigarh.gov.in",
+        "mock_phone": "0172-2722100",
+        "areas_assigned": "Govt. Dispensary Sector 22"
+      },
+      {
+        "role_id": "ROLE-HEALTH-03",
+        "role_title": "Health Inspector (Vector Control)",
+        "seniority": "L2-Supervisor",
+        "mock_person_name": "Amrita Devi",
+        "mock_email": "hi.vector@chandigarh.gov.in",
+        "mock_phone": "9876013003",
+        "areas_assigned": "All Sectors"
+      }
+    ],
+    "complaint_categories": [
+      "Mosquito/Vector",
+      "Dengue",
+      "Health Services",
+      "Stray Animal Bite",
+      "Food Adulteration",
+      "Fogging"
+    ],
+    "sla_hours_default": 48
+  },
+  {
+    "department_id": "DEPT-FIRE",
+    "department_name": "Fire & Emergency Services Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Emergency",
+    "roles": [
+      {
+        "role_id": "ROLE-FIRE-01",
+        "role_title": "Chief Fire Officer",
+        "seniority": "L4-Head",
+        "mock_person_name": "Sh. Rajinder Singh",
+        "mock_email": "cfo@chandigarh.gov.in",
+        "mock_phone": "0172-2700101",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-FIRE-02",
+        "role_title": "Station Officer",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Gurjit Singh",
+        "mock_email": "so.sec17@chandigarh.gov.in",
+        "mock_phone": "0172-2700102",
+        "areas_assigned": "Fire Station Sector 17"
+      },
+      {
+        "role_id": "ROLE-FIRE-03",
+        "role_title": "Fireman",
+        "seniority": "L1-Field",
+        "mock_person_name": "Satbir Singh",
+        "mock_email": "fireman.sec38@chandigarh.gov.in",
+        "mock_phone": "9876014003",
+        "areas_assigned": "Fire Station Sector 38"
+      }
+    ],
+    "complaint_categories": [
+      "Fire Hazard",
+      "Gas Leak",
+      "Emergency",
+      "Road Accident",
+      "Industrial Safety"
+    ],
+    "sla_hours_default": 1
+  },
+  {
+    "department_id": "DEPT-SW",
+    "department_name": "Social Welfare Department Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Social Services",
+    "roles": [
+      {
+        "role_id": "ROLE-SW-01",
+        "role_title": "Director Social Welfare",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "Dr. Kavita Arora",
+        "mock_email": "dsw@chandigarh.gov.in",
+        "mock_phone": "0172-2701800",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-SW-02",
+        "role_title": "Social Welfare Officer",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Preeti Sharma",
+        "mock_email": "swo.south@chandigarh.gov.in",
+        "mock_phone": "9876015002",
+        "areas_assigned": "South & South-East Sectors"
+      },
+      {
+        "role_id": "ROLE-SW-03",
+        "role_title": "Stray Animal Handler",
+        "seniority": "L1-Field",
+        "mock_person_name": "Baldev Singh",
+        "mock_email": "animal.welfare@chandigarh.gov.in",
+        "mock_phone": "9872015003",
+        "areas_assigned": "All Sectors"
+      }
+    ],
+    "complaint_categories": [
+      "Stray Animals",
+      "Animal Cruelty",
+      "Disabled Persons",
+      "Old Age Pension",
+      "Child Welfare"
+    ],
+    "sla_hours_default": 72
+  },
+  {
+    "department_id": "DEPT-VIG",
+    "department_name": "Vigilance Department Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Administration",
+    "roles": [
+      {
+        "role_id": "ROLE-VIG-01",
+        "role_title": "Director Vigilance",
+        "seniority": "L5-Secretary",
+        "mock_person_name": "Sh. Anurag Aggarwal IAS",
+        "mock_email": "dv@chandigarh.gov.in",
+        "mock_phone": "0172-2700900",
+        "areas_assigned": "All Government Departments"
+      },
+      {
+        "role_id": "ROLE-VIG-02",
+        "role_title": "Vigilance Officer",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Jasbir Kaur",
+        "mock_email": "vo@chandigarh.gov.in",
+        "mock_phone": "9876016002",
+        "areas_assigned": "MCC, Estate Office, Revenue"
+      }
+    ],
+    "complaint_categories": [
+      "Corruption",
+      "Bribery",
+      "Misconduct",
+      "RTI Related",
+      "Departmental Fraud"
+    ],
+    "sla_hours_default": 168
+  },
+  {
+    "department_id": "DEPT-IT",
+    "department_name": "IT Department / e-Sampark Chandigarh",
+    "parent_department": "UT Administration Chandigarh",
+    "wing": "Administration",
+    "roles": [
+      {
+        "role_id": "ROLE-IT-01",
+        "role_title": "Director IT",
+        "seniority": "L4-Head",
+        "mock_person_name": "Sh. Rajeev Mehta",
+        "mock_email": "dit@chandigarh.gov.in",
+        "mock_phone": "0172-2700100",
+        "areas_assigned": "All Chandigarh"
+      },
+      {
+        "role_id": "ROLE-IT-02",
+        "role_title": "System Manager (e-Sampark)",
+        "seniority": "L3-Officer",
+        "mock_person_name": "Simran Arora",
+        "mock_email": "sm.esampark@chandigarh.gov.in",
+        "mock_phone": "9876017002",
+        "areas_assigned": "e-Sampark Centres All Sectors"
+      },
+      {
+        "role_id": "ROLE-IT-03",
+        "role_title": "Helpdesk Executive",
+        "seniority": "L1-Field",
+        "mock_person_name": "Harjit Singh",
+        "mock_email": "hd.esampark@chandigarh.gov.in",
+        "mock_phone": "9872017003",
+        "areas_assigned": "e-Sampark Centre Sector 17"
+      }
+    ],
+    "complaint_categories": [
+      "IT/Digital Services",
+      "e-Sampark Portal",
+      "Certificate Download",
+      "Website Issues",
+      "Grievance Portal"
+    ],
+    "sla_hours_default": 24
+  }
+]
