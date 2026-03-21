@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  phone         String?   @unique // For Citizen Mobile OTP
+  email         String?   @unique // For Admin access
+  password      String?           // For Admin access
+  role          Role      @default(CITIZEN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  complaints    Complaint[]
+}
+
+enum Role {
+  CITIZEN
+  ADMIN
+  DEPARTMENT_HEAD
+}
+
+model Department {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  code        String      @unique @default("DEPT-UNKNOWN") // e.g. "DEPT-MCC-ENG"
+  name        String      @unique
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  complaints  Complaint[]
+  employees   Employee[]
+}
+
+model Sector {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  code        String   @unique @default("SEC-UNKNOWN") // e.g. "SEC-01"
+  name        String   @unique
+  number      Int      @unique
+  score       Float    @default(0)    // Civic Health Score
+  population  Int?     // For demographics metrics
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  complaints  Complaint[]
+}
+
+// City Directory Employee representing the workers in Chandigarh departments
+model Employee {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  roleRank     String      // e.g., "Field Inspector", "Chief Engineer"
+  isAvailable  Boolean     @default(true)
+  departmentId String      @db.ObjectId
+  department   Department  @relation(fields: [departmentId], references: [id])
+  complaints   Complaint[] // Assigned complaints
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Complaint {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  category      String?     // e.g "Roads", "Water Supply", "Sanitation"
+  status        Status      @default(PENDING)
+  sentiment     Float?      // Output from Sentiment Agent
+  urgency       Int         @default(1) // Output from Triage Agent
+  source        Source      @default(TEXT)
+  
+  userId        String      @db.ObjectId
+  user          User        @relation(fields: [userId], references: [id])
+
+  departmentId  String?     @db.ObjectId
+  department    Department? @relation(fields: [departmentId], references: [id])
+
+  sectorId      String?     @db.ObjectId
+  sector        Sector?     @relation(fields: [sectorId], references: [id])
+  
+  employeeId    String?     @db.ObjectId
+  assignedTo    Employee?   @relation(fields: [employeeId], references: [id])
+
+  documents     Document[]  // Relation to multiple uploaded documents
+  actions       Action[]
+  debateLogs    DebateLog[]
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+// Manages metadata for uploaded files stored in the local drive
+model Document {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  complaintId  String    @db.ObjectId
+  complaint    Complaint @relation(fields: [complaintId], references: [id])
+  filePath     String    // Local drive path e.g. "/uploads/complaints/123/img.jpg"
+  fileType     String    // e.g. "image/jpeg", "application/pdf"
+  uploadedAt   DateTime  @default(now())
+}
+
+enum Status {
+  PENDING
+  NEEDS_INFO
+  ESCALATED
+  INVESTIGATING
+  ASSIGNED
+  RESOLVED
+  REJECTED
+  CLOSED
+}
+
+enum Source {
+  TEXT
+  VOICE
+  IMAGE
+}
+
+model Action {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  complaintId   String    @db.ObjectId
+  complaint     Complaint @relation(fields: [complaintId], references: [id])
+  description   String
+  createdAt     DateTime  @default(now())
+}
+
+model DebateLog {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  complaintId   String    @db.ObjectId
+  complaint     Complaint @relation(fields: [complaintId], references: [id])
+  agentName     String    // e.g., "Policy Enforcer", "Chief Coordinator"
+  message       String    // The actual thought, statement, or tool result
+  metadata      String?   // Stringified JSON for extra debugging config
+  createdAt     DateTime  @default(now())
+}
